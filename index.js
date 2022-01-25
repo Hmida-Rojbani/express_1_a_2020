@@ -1,4 +1,7 @@
 const express = require('express');
+const Joi = require('joi');
+
+
 
 const app = express();
 const port = process.env.PORT||3000;
@@ -20,6 +23,21 @@ app.get('/api/students/:id', (req,res)=>{
     res.send(student);
 });
 
+app.use(express.json());
+const schema = Joi.object({
+    name : Joi.string().min(3).required()
+});
+app.post('/api/students', (req,res)=>{
+    const results = schema.validate(req.body);
+    if(results.error)
+        return res.status(400).send(results.error.details[0].message)
+    const student = {
+        id : students.length+1,
+        name : req.body.name
+    };
+    students.push(student);
+    res.send(student);
+});
 
 
 var quotes = {
