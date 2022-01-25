@@ -1,6 +1,7 @@
 const express = require('express');
 
 const app = express();
+const port = process.env.PORT||3000;
 
 var quotes = {
     'einstein': 'The only reason for time is so that everything doesn\'t happen at once.',
@@ -14,4 +15,4 @@ app.get('/',(req,res)=>{
     res.send('Hello in our first REST APP.');
 })
 
-app.listen(3000,()=>console.log('Server running on 3000'));
+app.listen(port,()=>console.log(`Server running on ${port}`));
