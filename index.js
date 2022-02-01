@@ -50,6 +50,15 @@ app.put('/api/students/:id', (req,res)=>{
     res.send(student);
 });
 
+app.delete('/api/students/:id', (req,res)=>{
+    const student = students.find(s=>s.id === parseInt(req.params.id));
+    if(!student)
+        return res.status(404).send('Student id not found');
+
+    students = students.filter(s=>s.id !== parseInt(req.params.id));
+    res.send(student);
+});
+
 var quotes = {
     'einstein': 'The only reason for time is so that everything doesn\'t happen at once.',
     'tesla' : 'The scientists of today think deeply instead of clearly. One must be sane to think clearly, but one can think deeply and be quite insane'
