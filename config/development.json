@@ -1,3 +1,6 @@
 {
-    "app_name" : "STUDENT_API_DEV"
+    "app_name" : "STUDENT_API_DEV", 
+    "DB" : {
+        "host" : "ip_for_dev"
+    }
 }

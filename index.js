@@ -17,6 +17,7 @@ let students = [
 //console.log(app.get('env'));
 
 console.log(config.get('app_name'));
+console.log('Host :' + config.get('DB.host')+ ' , pass : '+config.get('DB.password'));
 
 if(app.get('env') === 'development'){
     app.use(morgan('dev'));
