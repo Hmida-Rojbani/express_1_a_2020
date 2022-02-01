@@ -39,6 +39,16 @@ app.post('/api/students', (req,res)=>{
     res.send(student);
 });
 
+app.put('/api/students/:id', (req,res)=>{
+    const student = students.find(s=>s.id === parseInt(req.params.id));
+    if(!student)
+        return res.status(404).send('Student id not found');
+    const results = schema.validate(req.body);
+    if(results.error)
+        return res.status(400).send(results.error.details[0].message)
+    student.name=req.body.name;
+    res.send(student);
+});
 
 var quotes = {
     'einstein': 'The only reason for time is so that everything doesn\'t happen at once.',
