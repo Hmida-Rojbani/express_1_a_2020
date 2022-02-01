@@ -1,6 +1,6 @@
 const express = require('express');
 const Joi = require('joi');
-
+const log = require('./log')
 
 
 const app = express();
@@ -13,9 +13,18 @@ let students = [
 ];
 
 
+app.use(log);
+
+
+
 app.get('/api/students', (req,res)=>{
     res.send(students);
 });
+
+app.use((req,res,next)=>{
+    console.log("Auth....");
+    next();
+})
 app.get('/api/students/:id', (req,res)=>{
     const student = students.find(s=>s.id === parseInt(req.params.id));
     if(!student)
