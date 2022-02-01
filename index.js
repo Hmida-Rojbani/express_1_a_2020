@@ -2,6 +2,9 @@ const express = require('express');
 const Joi = require('joi');
 const morgan = require('morgan');
 const config = require('config');
+const appDebugger = require('debug')('app:debug');
+const DBDebugger = require('debug')('app:db');
+
 
 
 const app = express();
@@ -16,8 +19,8 @@ let students = [
 //console.log(process.env.NODE_ENV);
 //console.log(app.get('env'));
 
-console.log(config.get('app_name'));
-console.log('Host :' + config.get('DB.host')+ ' , pass : '+config.get('DB.password'));
+appDebugger(config.get('app_name'));
+DBDebugger('Host :' + config.get('DB.host')+ ' , pass : '+config.get('DB.password'));
 
 if(app.get('env') === 'development'){
     app.use(morgan('dev'));
@@ -84,4 +87,4 @@ app.get('/',(req,res)=>{
     res.send('Hello in our first REST APP.');
 })
 
-app.listen(port,()=>console.log(`Server running on ${port}`));
+app.listen(port,()=>appDebugger(`Server running on ${port}`));
