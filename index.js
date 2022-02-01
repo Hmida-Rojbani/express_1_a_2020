@@ -1,6 +1,7 @@
 const express = require('express');
 const Joi = require('joi');
-const log = require('./log')
+const morgan = require('morgan');
+const config = require('config');
 
 
 const app = express();
@@ -12,8 +13,14 @@ let students = [
     {id:3, name : "std3"}
 ];
 
+//console.log(process.env.NODE_ENV);
+//console.log(app.get('env'));
 
-app.use(log);
+console.log(config.get('app_name'));
+
+if(app.get('env') === 'development'){
+    app.use(morgan('dev'));
+}
 
 
 
@@ -21,10 +28,6 @@ app.get('/api/students', (req,res)=>{
     res.send(students);
 });
 
-app.use((req,res,next)=>{
-    console.log("Auth....");
-    next();
-})
 app.get('/api/students/:id', (req,res)=>{
     const student = students.find(s=>s.id === parseInt(req.params.id));
     if(!student)
